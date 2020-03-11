@@ -1,0 +1,173 @@
+FORMAT: 1A
+HOST: https://gametask.com.br/
+
+# GT-API
+
+GT-API is a simple API allowing front-end to consume data.
+
+## User [/user]
+
+###  Store new user [POST]
+
+Create a new user
+
++ Request 200 (application/json)
+
+        [
+            {
+               name: 'Name Example',
+               email: 'example@gametask.com.br',
+               birthday: '12/29/2000',
+               password_hash: 'passExample'
+            }
+        ]
+        
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    user: {
+                        id: 'xxxxxxxxxxxxxxxxxxxx',
+                        name: 'Name Example',
+                        email: 'example@gametask.com.br'
+                    },
+                    token: 'xxxxxxxxxxxxxxxxxxxx'
+                }
+            ]
+
+
+### Get information about user [GET]
+
+Get information about some user
+
++ Request 200 (application/json)
+
+    + Headers
+
+            Authorization: 'Bearer ' + user_token
+    
+        + Body       
+            [
+                {
+                
+                }
+            ]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    id: 'xxxxxxxxxxxxxxxxxxxx',
+                    name: 'Name Example'
+                    email: 'example@gametask.com.br',
+                    birthday: '12/29/2000',
+                    createdAt: '01/01/2020',
+                    friend_list: [
+                        {
+                            friend_id
+                        }
+                    ],
+                    tasks: [
+                        {
+                            task_id
+                        }
+                    ]
+                }
+            ]
+
+### Update information [PUT]
+
+Update information about some user
+
++ Request 200 (application/json)
+    
+    + Headers
+    
+            Authorization: 'Bearer ' + user_token
+    
+    
+        + Body
+        
+            [
+                {
+                    name: 'New Example',
+                    email: 'newexample@gametask.com.br',
+                    oldPassword: 'passExample',
+                    password: 'newPassExample'
+                }
+            ]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [
+                {
+                    id: 'xxxxxxxxxxxxxxxxxxxxxxxx',
+                    name: 'New Example',
+                    email: 'newexample@gametask.com.br',
+                }
+            ]
+
+### Delete user [DELETE]
+    
+Delete user
+
++ Request 200 (application/json)
+    
+    + Headers
+        
+            Authorization: 'Bearer' + user_token
+
+        + Body
+            [
+                {
+                
+                }
+            ]
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            [
+                {
+                    message: 'Delete successfully'
+                }
+            ]
+            
+            
+## Auth [/user/auth]
+
+### Authenticate user [POST]
+
+Authenticate an user and get token
+
++ Request 200 (application/json)
+
+        [
+            {
+                email: 'example@gametask.com',
+                password: 'passExample'
+            }
+        ]
+
+
++ Response 200 (application/json)
+    
+    + Body
+    
+            [
+                {
+                    user: {
+                        id: 'xxxxxxxxxxxxxxxxxxxx',
+                        name: 'Name Example',
+                        email: 'example@gametask.com'
+                    },
+                    token: 'xxxxxxxxxxxxxxxxxxxx'
+                }
+            ]
