@@ -366,6 +366,7 @@ Code  | Description
                     due_date: MM/DD/YYYY
                 }
             ]
+
 + Response 200 (application/json)
     
     + Body
@@ -385,7 +386,11 @@ Code  | Description
                     ]
                 }
             ]
+
+
 ### Update Resource [PUT]
+
+
 + Request 200 (application/json)
     
     + Headers
@@ -404,7 +409,9 @@ Code  | Description
                     active: true or false
                 }
             ]
+
 + Response 200 (application/json)
+
     + Body
     
             [
@@ -424,10 +431,11 @@ Code  | Description
             ]
             
 ###  Delete Resource [DELETE]
+
 + Request 200 (application/json)
     
     + Headers
-    
+
             Authorization: 'Bearer ' + TOKEN
             
     + Body
@@ -437,6 +445,7 @@ Code  | Description
                     task_id: xxxxxxxxxxxxxxx
                 }
             ]
+
 + Response 200 (application/json)
     
     + Body
@@ -449,11 +458,15 @@ Code  | Description
             
             
 ## Todo [/todo]
+
 ###  Fetch Resource [GET]
+
 + Request 200 (application/json)
+
     + Headers
-    
+
             Authorization: 'Bearer ' + TOKEN
+
     + Body
         
             [
@@ -461,6 +474,7 @@ Code  | Description
                     _id: xxxxxxxxxxxxxxx
                 }
             ]
+
 + Response 200 (application/json)
     
     + Body
@@ -475,11 +489,13 @@ Code  | Description
                     task_id: xxxxxxxxxxxxxx
                 }
             ]
+
 ###  Create Resource [POST]
+
 + Request 200 (application/json)
     
     + Headers
-    
+
             Authorization: 'Bearer ' + TOKEN
             
     + Body
