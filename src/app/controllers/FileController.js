@@ -4,9 +4,7 @@ class FileController {
   async store(req, res) {
     const { originalname: name, filename: path } = req.file;
 
-    const url = `${process.env.STATIC_URL}/avatar/${this.path}`;
-
-    const file = await File.create({ name, path, url });
+    const file = await File.create({ name, path });
 
     return res.json(file);
   }

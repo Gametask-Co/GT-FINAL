@@ -9,6 +9,7 @@ import FriendshipController from './app/controllers/FriendshipController';
 import TaskController from './app/controllers/TaskController';
 import TodoController from './app/controllers/TodoController';
 import FileController from './app/controllers/FileController';
+import SessionController from './app/controllers/SessionController';
 
 const routes = new Router();
 const upload = multer(multerConfig);
@@ -16,52 +17,52 @@ const upload = multer(multerConfig);
 // -------- USER ROUTES --------
 
 // POST
-routes.post('/user/', UserController.store);
-routes.post('/user/auth/', UserController.auth);
+routes.post('/sessions', SessionController.store);
+routes.post('/user', UserController.store);
 
 // -------- AUTH ROUTES --------
 routes.use(authMiddleware);
 
 // GET
-routes.get('/user/', UserController.index);
+routes.get('/user', UserController.index);
 
 // PUT
-routes.put('/user/', UserController.update);
+routes.put('/user', UserController.update);
 
 // DELETE
-routes.delete('/user/', UserController.delete);
+routes.delete('/user', UserController.delete);
 
 // -------- FRIENDSHIP ROUTES --------
 
 // GET
-routes.get('/friend/', FriendshipController.index);
+routes.get('/friend', FriendshipController.index);
 
 // POST
-routes.post('/friend/', FriendshipController.store);
+routes.post('/friend', FriendshipController.store);
 
 // DELETE
-routes.delete('/friend/', FriendshipController.delete);
+routes.delete('/friend', FriendshipController.delete);
 
 // -------- TASK ROUTES --------
 
 // GET
-routes.get('/task/', TaskController.index);
+routes.get('/task', TaskController.index);
 
 // POST
-routes.post('/task/', TaskController.store);
+routes.post('/task', TaskController.store);
 
 // DELETE
-routes.delete('/task/', TaskController.delete);
+routes.delete('/task', TaskController.delete);
 
 // PUT
-routes.put('/task/', TaskController.update);
+routes.put('/task', TaskController.update);
 
 // -------- TO DO ROUTES --------
 
-routes.post('/todo/', TodoController.store);
-routes.get('/todo/', TodoController.index);
-routes.delete('/todo/', TodoController.delete);
-routes.put('/todo/', TodoController.update);
+routes.post('/todo', TodoController.store);
+routes.get('/todo', TodoController.index);
+routes.delete('/todo', TodoController.delete);
+routes.put('/todo', TodoController.update);
 
 // rota principal ( Em breve )
 routes.get('/', (req, res) => {

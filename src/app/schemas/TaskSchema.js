@@ -28,7 +28,6 @@ const TaskSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-
   todo_list: [
     {
       type: Schema.Types.ObjectId,

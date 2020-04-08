@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 
-const FileSchema = new mongoose.Schema({
+const FileSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -9,12 +9,10 @@ const FileSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  url: {
-    type: String,
-    required: true,
-  },
 });
 
-export default mongoose.model('File', FileSchema);
+FileSchema.virtual('url').get(() => {
+  return `${process.env.STATIC_URL}/avatar/${this.path}`;
+});
 
-//  return `${process.env.APP_URL}/files/${this.path}`;
+export default FileSchema;

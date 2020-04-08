@@ -11,7 +11,7 @@ Method   | Description
 -------- | -----------
 `GET`    | Fetch - retrieve resources
 `POST`   | Create - create new resources
-`PUT`  | Update - (partially) modify existing resources
+`PUT`    | Update - (partially) modify existing resources
 `DELETE` | Delete - remove resources
 # Status Codes
 
@@ -33,45 +33,45 @@ Code  | Description
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-    
-    + Body
-        
-            [
-                {
-                
-                }
-            ]
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+
+      }
+    ]
 
 + Response 200 (application/json)
 
-    + Body
-    
-            [
-                {
-                    user: {
-                        id: 'xxxxxxxxxxxxxxxxxxxx',
-                        name: 'Name Example',
-                        email: 'example@gametask.com.br',
-                        birthday: MM/DD/YYYY,
-                        exp: 0,
-                        createdAt: MM/DD/YYYY,
-                        friend_list: [
-                            {
-                                friend_id
-                            }
-                        ],
-                        tasks: [
-                            {
-                                task_id
-                            }
-                        ]
-                    },
-                    token: 'xxxxxxxxxxxxxxxxxxxx'
-                }
-            ]
+  + Body
+
+    [
+      {
+        user: {
+          id: 'xxxxxxxxxxxxxxxxxxxx',
+          name: 'Name Example',
+          email: 'example@gametask.com.br',
+          birthday: MM/DD/YYYY,
+          exp: 0,
+          createdAt: MM/DD/YYYY,
+          friend_list: [
+            {
+              friend_id
+            }
+          ],
+          tasks: [
+            {
+              task_id
+            }
+          ]
+        },
+        token: 'xxxxxxxxxxxxxxxxxxxx'
+      }
+    ]
 
 
 ###  Create Resource [POST]
@@ -79,42 +79,42 @@ Code  | Description
 
 + Request 200 (application/json)
 
-        [
-            {
-               name: 'Name Example',
-               email: 'example@gametask.com.br',
-               birthday: '12/29/2000',
-               password_hash: 'passExample'
-            }
-        ]
-        
+  [
+    {
+      name: 'Name Example',
+      email: 'example@gametask.com.br',
+      birthday: '12/29/2000',
+      password_hash: 'passExample'
+    }
+  ]
+
 + Response 200 (application/json)
 
-    + Body
-    
-            [
-                {
-                    user: {
-                        id: 'xxxxxxxxxxxxxxxxxxxx',
-                        name: 'Name Example',
-                        email: 'example@gametask.com.br',
-                        birthday: MM/DD/YYYY,
-                        exp: 0,
-                        createdAt: MM/DD/YYYY,
-                        friend_list: [
-                            {
-                                friend_id
-                            }
-                        ],
-                        tasks: [
-                            {
-                                task_id
-                            }
-                        ]
-                    },
-                    token: 'xxxxxxxxxxxxxxxxxxxx'
-                }
-            ]
+  + Body
+
+    [
+      {
+        user: {
+          id: 'xxxxxxxxxxxxxxxxxxxx',
+          name: 'Name Example',
+          email: 'example@gametask.com.br',
+          birthday: MM/DD/YYYY,
+          exp: 0,
+          createdAt: MM/DD/YYYY,
+          friend_list: [
+            {
+              friend_id
+            }
+          ],
+          tasks: [
+            {
+              task_id
+            }
+          ]
+        },
+        token: 'xxxxxxxxxxxxxxxxxxxx'
+      }
+    ]
 
 
 
@@ -122,65 +122,65 @@ Code  | Description
 
 
 + Request 200 (application/json)
-    
-    + Headers
-    
-            Authorization: 'Bearer ' + TOKEN
-    
-    
-    + Body
-        
-            [
-                {
-                    name: 'New Example',
-                    email: 'newexample@gametask.com.br',
-                    oldPassword: 'passExample',
-                    password: 'newPassExample',
-                    exp: 555
-                }
-            ]
+
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+
+  + Body
+
+    [
+      {
+        name: 'New Example',
+        email: 'newexample@gametask.com.br',
+        oldPassword: 'passExample',
+        password: 'newPassExample',
+        exp: 555
+      }
+    ]
 
 + Response 200 (application/json)
 
-    + Body
-    
-            [
-                {
-                    id: 'xxxxxxxxxxxxxxxxxxxxxxxx',
-                    name: 'New Example',
-                    email: 'newexample@gametask.com.br',
-                    exp: 555
-                }
-            ]
+  + Body
+
+    [
+      {
+        id: 'xxxxxxxxxxxxxxxxxxxxxxxx',
+        name: 'New Example',
+        email: 'newexample@gametask.com.br',
+        exp: 555
+      }
+    ]
 
 ### Delete Resource [DELETE]
-    
+
 
 + Request 200 (application/json)
-    
-    + Headers
-        
-            Authorization: 'Bearer' + TOKEN
 
-    + Body
-        
-            [
-                {
-                
-                }
-            ]
+  + Headers
+
+    Authorization: 'Bearer' + TOKEN
+
+  + Body
+
+    [
+      {
+
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    message: 'Delete successfully'
-                }
-            ]
-            
-            
+
+  + Body
+
+    [
+      {
+        message: 'Delete successfully'
+      }
+    ]
+
+
 ## Auth [/user/auth]
 
 ### Create Resource [POST]
@@ -188,41 +188,41 @@ Code  | Description
 
 + Request 200 (application/json)
 
-        [
-            {
-                email: 'example@gametask.com',
-                password: 'passExample'
-            }
-        ]
+  [
+    {
+      email: 'example@gametask.com',
+      password: 'passExample'
+    }
+  ]
 
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    user: {
-                        id: 'xxxxxxxxxxxxxxxxxxxx',
-                        name: 'Name Example',
-                        email: 'example@gametask.com.br',
-                        birthday: MM/DD/YYYY,
-                        exp: 0,
-                        createdAt: MM/DD/YYYY,
-                        friend_list: [
-                            {
-                                friend_id
-                            }
-                        ],
-                        tasks: [
-                            {
-                                task_id
-                            }
-                        ]
-                    },
-                    token: 'xxxxxxxxxxxxxxxxxxxx'
-                }
-            ]
+
+  + Body
+
+    [
+      {
+        user: {
+          id: 'xxxxxxxxxxxxxxxxxxxx',
+          name: 'Name Example',
+          email: 'example@gametask.com.br',
+          birthday: MM/DD/YYYY,
+          exp: 0,
+          createdAt: MM/DD/YYYY,
+          friend_list: [
+            {
+              friend_id
+            }
+          ],
+          tasks: [
+            {
+              task_id
+            }
+          ]
+        },
+        token: 'xxxxxxxxxxxxxxxxxxxx'
+      }
+    ]
 
 
 ## Friendship [/friend]
@@ -231,362 +231,362 @@ Code  | Description
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-         
-    + Body
-        
-            [
-                {
-    
-                }
-            ]
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    friend_list: [
-                        {
-                            friend_id
-                        }
-                    ]
-                }
-            ]
+
+  + Body
+
+    [
+      {
+        friend_list: [
+          {
+            friend_id
+          }
+        ]
+      }
+    ]
 
 ###  Create Resource [POST]
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body
-            
-            [
-                {
-                    id: xxxxxxxxxxxxxxxxxxxx
-                }
-            ]
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        id: xxxxxxxxxxxxxxxxxxxx
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    message: 'Succefully operation'
-                }
-            ]
-            
-            
+
+  + Body
+
+    [
+      {
+        message: 'Succefully operation'
+      }
+    ]
+
+
 ###  Delete Resource [DELETE]
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body
-        
-            [
-                {
-                    id: xxxxxxxxxxxxxxxxxxxx
-                }
-            ]
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        id: xxxxxxxxxxxxxxxxxxxx
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    message: 'Succefully operation'
-                }
-            ]
-            
-            
+
+  + Body
+
+    [
+      {
+        message: 'Succefully operation'
+      }
+    ]
+
+
 ## Task [/task]
 
 ###  Fetch Resource [GET]
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body    
-        
-            [
-                {
-                    task_id: xxxxxxxxxxxxxxx
-                }
-            ]
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        task_id: xxxxxxxxxxxxxxx
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    name: 'Task Example',
-                    description: 'Description example',
-                    createdAt: MM/DD/YYYY,
-                    due_date: MM/DD/YYYY,
-                    active: true or false,
-                    user_id: xxxxxxxxxxxxxx,
-                    todo_list: [
-                        {
-                            todo_id
-                        }
-                    ]
-                }
-            ]
+
+  + Body
+
+    [
+      {
+        name: 'Task Example',
+        description: 'Description example',
+        createdAt: MM/DD/YYYY,
+        due_date: MM/DD/YYYY,
+        active: true or false,
+        user_id: xxxxxxxxxxxxxx,
+        todo_list: [
+          {
+            todo_id
+          }
+        ]
+      }
+    ]
 
 ###  Create Resource [POST]
 
 + Request 200 (application/json)
-    
-    + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body    
-        
-            [
-                {
-                    name: 'Name example',
-                    description: 'Description Example,
-                    due_date: MM/DD/YYYY
-                }
-            ]
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        name: 'Name example',
+        description: 'Description Example',
+        due_date: MM/DD/YYYY
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    name: 'Task Example',
-                    description: 'Description example',
-                    createdAt: MM/DD/YYYY,
-                    due_date: MM/DD/YYYY,
-                    active: true,
-                    user_id: xxxxxxxxxxxxxx,
-                    todo_list: [
-                        {
-                            todo_id
-                        }
-                    ]
-                }
-            ]
+
+  + Body
+
+    [
+      {
+        name: 'Task Example',
+        description: 'Description example',
+        createdAt: MM/DD/YYYY,
+        due_date: MM/DD/YYYY,
+        active: true,
+        user_id: xxxxxxxxxxxxxx,
+        todo_list: [
+          {
+            todo_id
+          }
+        ]
+      }
+    ]
 
 
 ### Update Resource [PUT]
 
 
 + Request 200 (application/json)
-    
-    + Headers
-    
-            Authorization: 'Bearer ' + TOKEN
-    
-    
-    + Body
-        
-            [
-                {
-                    _id: xxxxxxxxxxxxx,
-                    name: 'New Name Example',
-                    description: 'New description example',
-                    due_date: MM/DD/YYYY,
-                    active: true or false
-                }
-            ]
+
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+
+  + Body
+
+    [
+      {
+        _id: xxxxxxxxxxxxx,
+        name: 'New Name Example',
+        description: 'New description example',
+        due_date: MM/DD/YYYY,
+        active: true or false
+      }
+    ]
 
 + Response 200 (application/json)
 
-    + Body
-    
-            [
-                {
-                    name: 'New Name Example',
-                    description: 'New description example',
-                    createdAt: MM/DD/YYYY,
-                    due_date: MM/DD/YYYY,
-                    active: true,
-                    user_id: xxxxxxxxxxxxxx,
-                    todo_list: [
-                        {
-                            todo_id
-                        }
-                    ]
-                }
-            ]
-            
+  + Body
+
+    [
+      {
+        name: 'New Name Example',
+        description: 'New description example',
+        createdAt: MM/DD/YYYY,
+        due_date: MM/DD/YYYY,
+        active: true,
+        user_id: xxxxxxxxxxxxxx,
+        todo_list: [
+          {
+            todo_id
+          }
+        ]
+      }
+    ]
+
 ###  Delete Resource [DELETE]
 
 + Request 200 (application/json)
-    
-    + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body
-        
-            [
-                {
-                    task_id: xxxxxxxxxxxxxxx
-                }
-            ]
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        task_id: xxxxxxxxxxxxxxx
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    message: 'Succefully operation'
-                }
-            ]
-            
-            
+
+  + Body
+
+    [
+      {
+        message: 'Succefully operation'
+      }
+    ]
+
+
 ## Todo [/todo]
 
 ###  Fetch Resource [GET]
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
+    Authorization: 'Bearer ' + TOKEN
 
-    + Body
-        
-            [
-                {
-                    _id: xxxxxxxxxxxxxxx
-                }
-            ]
+  + Body
+
+    [
+      {
+        _id: xxxxxxxxxxxxxxx
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    name: 'Name Example',
-                    description: 'Description example',
-                    createdAt: MM/DD/YYYY,
-                    active: true or false,
-                    user_id: xxxxxxxxxxxxxx,
-                    task_id: xxxxxxxxxxxxxx
-                }
-            ]
+
+  + Body
+
+    [
+      {
+        name: 'Name Example',
+        description: 'Description example',
+        createdAt: MM/DD/YYYY,
+        active: true or false,
+        user_id: xxxxxxxxxxxxxx,
+        task_id: xxxxxxxxxxxxxx
+      }
+    ]
 
 ###  Create Resource [POST]
 
 + Request 200 (application/json)
-    
-    + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body
-            
-            [
-                {
-                    name: 'Name example',
-                    description: 'Description Example,
-                    task_id: xxxxxxxxxxxxxx
-                }
-            ]
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        name: 'Name example',
+        description: 'Description Example',
+        task_id: xxxxxxxxxxxxxx
+      }
+    ]
 
 
 + Response 200 (application/json)
 
-    + Headers
-    
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body
-        
-                [
-                    {
-                        name: 'Name Example',
-                        description: 'Description example',
-                        createdAt: MM/DD/YYYY,
-                        active: true or false,
-                        user_id: xxxxxxxxxxxxxx,
-                        task_id: xxxxxxxxxxxxxx
-                    }
-                ]
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        name: 'Name Example',
+        description: 'Description example',
+        createdAt: MM/DD/YYYY,
+        active: true or false,
+        user_id: xxxxxxxxxxxxxx,
+        task_id: xxxxxxxxxxxxxx
+      }
+    ]
 
 
 ### Update Resource [PUT]
 
 
 + Request 200 (application/json)
-    
-    + Headers
-    
-            Authorization: 'Bearer ' + TOKEN
-    
-    
-    + Body
-        
-            [
-                {
-                    _id: xxxxxxxxxxxxx,
-                    name: 'New Name Example',
-                    description: 'New description example',
-                    active: true or false
-                }
-            ]
+
+  + Headers
+
+    Authorization: 'Bearer ' + TOKEN
+
+
+  + Body
+
+    [
+      {
+        _id: xxxxxxxxxxxxx,
+        name: 'New Name Example',
+        description: 'New description example',
+        active: true or false
+      }
+    ]
 
 + Response 200 (application/json)
 
-    + Body
-    
-            [
-                {
-                    name: 'New Name Example',
-                    description: 'New description example',
-                    createdAt: MM/DD/YYYY,
-                    active: true,
-                    user_id: xxxxxxxxxxxxxx,
-                    task_id: xxxxxxxxxxxxxx
-                }
-            ]
-            
+  + Body
+
+    [
+      {
+        name: 'New Name Example',
+        description: 'New description example',
+        createdAt: MM/DD/YYYY,
+        active: true,
+        user_id: xxxxxxxxxxxxxx,
+        task_id: xxxxxxxxxxxxxx
+      }
+    ]
+
 ###  Delete Resource [DELETE]
 
 + Request 200 (application/json)
 
-    + Headers
+  + Headers
 
-            Authorization: 'Bearer ' + TOKEN
-            
-    + Body
-        
-            [
-                {
-                    todo_id: xxxxxxxxxxxxxxx
-                }
-            ]
+    Authorization: 'Bearer ' + TOKEN
+
+  + Body
+
+    [
+      {
+        todo_id: xxxxxxxxxxxxxxx
+      }
+    ]
 
 + Response 200 (application/json)
-    
-    + Body
-    
-            [
-                {
-                    message: 'Succefully operation'
-                }
-            ]
+
+  + Body
+
+    [
+      {
+        message: 'Succefully operation'
+      }
+    ]

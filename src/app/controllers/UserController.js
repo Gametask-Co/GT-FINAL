@@ -1,122 +1,157 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
-import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
+import { isBefore, subYears, startOfYear, parseISO } from 'date-fns';
 
 import User from '../models/User';
 
-dotenv.config();
-
-function generateToken(params = {}) {
-  return jwt.sign(params, process.env.SECRET, {
-    expiresIn: 86400,
-  });
-}
-
 class UserController {
+  //  Buscar usuário por nome
+  async index(req, res) {
+    //  Parametros de busca
+    const { name, page = 1 } = req.query;
+
+    //  Busca case insensitive com paginação de 10
+    const user = await User.find({ name: new RegExp(`^${name}$`, 'i') })
+      .skip((page - 1) * 10)
+      .limit(10);
+
+    //  Busca Vazia
+    if (!user) {
+      return res.status(401).json({ error: 'User name not found' });
+    }
+
+    //  Retorna o usuário
+    return res.json(user);
+  }
+
+  //  Criar novo usuário
   async store(req, res) {
+    //  Validação dos campos do body
     const schema = Yup.object().shape({
       name: Yup.string().required(),
       email: Yup.string().email().required(),
       birthday: Yup.date().required(),
       password: Yup.string().required().min(6),
+      confirmPassword: Yup.string().when('password', (password, field) =>
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
     });
-
+    //  Campo inválido
     if (!(await schema.isValid(req.body)))
       return res.status(400).send({ message: 'Validation error' });
 
-    if (new Date(req.body.birthday) >= Date.now())
-      return res.status(400).send({ message: 'Invalid birthday' });
+    //  Desestruturação do body
+    const { name, email, birthday } = req.body;
 
-    const { email } = req.body;
+    //  Buscar usuário por email
     const userExists = await User.findOne({ email });
+    // Email indisponível
+    if (userExists) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
 
-    if (!userExists) {
-      try {
-        const user = await User.create(req.body);
-        user.password = undefined;
+    //  Limitar a idade mínima a 10 anos
+    const ageLimit = startOfYear(subYears(new Date(), 10));
+    //  Usuário muito novo
+    if (isBefore(ageLimit, parseISO(birthday))) {
+      return res
+        .status(401)
+        .json({ error: 'User must be at least 10 years old' });
+    }
 
-        return res.send({
-          user,
-          token: generateToken({ id: user.id }),
-        });
-      } catch (err) {
-        return res.status(500).send({ message: 'Account creating error' });
+    //  Criptografando senha informada
+    const password = await bcrypt.hash(req.body.password, 8);
+
+    //  Criando usuário no banco
+    const user = await User.create({ name, email, birthday, password });
+
+    // Retornando usuário criado
+    return res.json(user);
+  }
+
+  //  Atualizar dados do Usuário
+  async update(req, res) {
+    //  Validação dos campos do body
+    const schema = Yup.object().shape({
+      name: Yup.string(),
+      email: Yup.string().email(),
+      birthday: Yup.date(),
+      avatar: Yup.string(),
+      oldPassword: Yup.string().min(6),
+      password: Yup.string()
+        .min(6)
+        .when('oldPassword', (oldPassword, field) =>
+          oldPassword ? field.required() : field
+        ),
+      confirmPassword: Yup.string().when('password', (password, field) =>
+        password ? field.required().oneOf([Yup.ref('password')]) : field
+      ),
+    });
+    //  Campo inválido
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    //  Desestruturação do body
+    const { email, oldPassword } = req.body;
+
+    //  Buscar usuário por id
+    const user = await User.findById(req.userId).select('+password');
+
+    // Comparando Emails
+    if (email !== user.email) {
+      //  Buscar usuário por email
+      const userExists = await User.findOne({ email });
+      // Email indisponível
+      if (userExists) {
+        return res.status(400).json({ error: 'User already exists' });
       }
     }
 
-    return res.status(400).send({
-      message: 'User already exists!',
-    });
-  }
-
-  async index(req, res) {
-    const user = await User.findById(req.user_id);
-    return res.send({ user });
-  }
-
-  async update(req, res) {
-    const user = await User.findById(req.user_id).select('+password');
-
-    const { email, oldPassword } = req.body;
-
-    if (email !== user.email) {
-      const userExists = await User.findOne({ email });
-
-      if (userExists)
-        return res.status(400).send({ message: 'Email already taken' });
+    //  Comparando senhas
+    if (oldPassword && !(await bcrypt.compare(oldPassword, user.password))) {
+      return res.status(401).json({ error: 'Password does not match' });
     }
 
-    if (oldPassword && !(await bcrypt.compare(oldPassword, user.password)))
-      return res.status(401).send({ message: 'Password does not match' });
+    let newUser;
 
-    const { id, name } = await user.updateOne(req.body);
+    //  Criando uma nova senha
+    if (req.body.oldPassword) {
+      const password = await bcrypt.hash(req.body.password, 8);
+      //  Atualizado dados + nova senha
+      newUser = await User.findOneAndUpdate(
+        { _id: req.userId },
+        { ...req.body, password },
+        { new: true }
+      );
+    } else {
+      //  Atualizando dados sem nova senha
+      newUser = await User.findOneAndUpdate({ _id: req.userId }, req.body, {
+        new: true,
+      });
+    }
 
-    return res.send({
-      id,
-      name,
-      email,
-    });
+    // return user
+    return res.json(newUser);
   }
 
   async delete(req, res) {
-    const user = await User.findById(req.user_id);
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      {
+        deactivated: true,
+        name: undefined,
+        email: undefined,
+        password: undefined,
+        avatar: null,
+        friend_list: {},
+      },
+      { new: true }
+    );
 
-    if (!user) return res.status(400).send({ message: 'User not found' });
+    if (!user) return res.status(400).json({ message: 'User not found' });
 
-    try {
-      await user.delete();
-      return res.send({ message: 'Delete successfully' });
-    } catch (err) {
-      return res.status(500).send({ message: 'Error while deleting' });
-    }
-  }
-
-  async auth(req, res) {
-    const schema = Yup.object().shape({
-      email: Yup.string().email().required(),
-      password: Yup.string().required(),
-    });
-
-    if (!(await schema.isValid(req.body)))
-      return res.status(400).send({ message: 'Validation error' });
-
-    const { email, password } = req.body;
-
-    const user = await User.findOne({ email }).select('+password');
-
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res
-        .status(401)
-        .send({ message: 'User not found or Invalid password' });
-    }
-
-    user.password = undefined;
-
-    return res.send({
-      user,
-      token: generateToken({ id: user.id }),
-    });
+    return res.json({ message: 'Delete successfully' });
   }
 }
 
