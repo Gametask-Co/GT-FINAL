@@ -63,7 +63,7 @@ class UserController {
     const password = await bcrypt.hash(req.body.password, 8);
 
     //  Criando usuário no banco
-    const user = await User.create({ name, email, birthday, password });
+    const user = await User.create({ ...req.body, password });
 
     // Retornando usuário criado
     return res.json(user);
@@ -135,7 +135,9 @@ class UserController {
     return res.json(newUser);
   }
 
+  //  Deletar conta do usuário
   async delete(req, res) {
+    // Selecionar  pelo ID e sobrescrever dados sensiveis
     const user = await User.findByIdAndUpdate(
       req.userId,
       {
@@ -149,8 +151,10 @@ class UserController {
       { new: true }
     );
 
+    // Id não encontrado
     if (!user) return res.status(400).json({ message: 'User not found' });
 
+    //  Deletado com sucesso
     return res.json({ message: 'Delete successfully' });
   }
 }
